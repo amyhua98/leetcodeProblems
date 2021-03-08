@@ -1,7 +1,6 @@
 class Solution {
     
   private HashMap<Character, Character> mappings;
-
   public Solution() {
     this.mappings = new HashMap<Character, Character>();
     this.mappings.put(')', '(');
