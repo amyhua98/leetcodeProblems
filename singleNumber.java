@@ -1,19 +1,14 @@
 class Solution {
-    public int singleNumber(int[] nums) {
-        HashMap hashMap = new HashMap();
-        for(int i=0; i<nums.length; i++){
-             if(hashMap.containsKey(nums[i])){
-                hashMap.remove(nums[i]);
-            } else {
-                 hashMap.put(nums[i], i);
-             }
-        }
-        
-        for(int i=0; i<nums.length; i++){
-            if(hashMap.containsKey(nums[i])){
-                return nums[i];
-            }
-        }
-        return 0;
+  public int singleNumber(int[] nums) {
+    HashMap<Integer, Integer> hashMap = new HashMap<>();
+    for (int i : nums) {
+      hashMap.put(i, hashMap.getOrDefault(i, 0) + 1);
     }
+    for (int i : nums) {
+      if (hashMap.get(i) == 1) {
+        return i;
+      }
+    }
+    return 0;
+  }
 }
