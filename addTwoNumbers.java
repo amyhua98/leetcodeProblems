@@ -9,33 +9,23 @@
  * }
  */
 class Solution {
-    private ListNode nextOrNull(ListNode lst) {
-        if (lst == null) {
-            return null;
-        }
-        
-        return lst.next;
-    }
-    
-    private int add(int sum, ListNode lst) {
-        if (lst == null) {
-            return sum;
-        }
-        
-        return sum + lst.val;
-    }
-    
-    private ListNode addNodes(ListNode l1, ListNode l2, int odd) {
-        if (l1 == null && l2 == null && odd == 0) {
-            return null;
-        }
-
-        int val = add(add(odd, l1), l2);
-        
-        return new ListNode(val % 10, addNodes(nextOrNull(l1), nextOrNull(l2), val / 10));
-    }
-    
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return addNodes(l1, l2, 0);
+        ListNode dummyHead = new ListNode(0);
+        ListNode p = l1, q = l2, curr = dummyHead;
+        int carry = 0;
+        while (p != null || q != null) {
+            int x = (p != null) ? p.val : 0;
+            int y = (q != null) ? q.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr.next = new ListNode(sum % 10);
+            curr = curr.next;
+            if (p != null) p = p.next;
+            if (q != null) q = q.next;
+        }
+        if (carry > 0) {
+            curr.next = new ListNode(carry);
+        }
+        return dummyHead.next;
     }
 }
