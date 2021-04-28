@@ -1,24 +1,26 @@
 class Solution {
-    public int[][] matrixReshape(int[][] mat, int r, int c) {
-        int[][] array = new int[r][c];
-        if(mat.length * mat[0].length != array.length * array[0].length)
-            return mat;
+    public int[][] matrixReshape(int[][] nums, int r, int c) {
+        int rows = nums.length;
+        int columns = nums[0].length;
         
-        int[] tmp = new int[mat.length * mat[0].length];
-        int j = 0;
-        for(int row = 0; row < mat.length; row++){
-            for(int col = 0; col < mat[0].length; col++){
-                tmp[j] = mat[row][col];
-                j++;
+        if((rows * columns) != r * c){
+            return nums;
+        }
+        
+        int[][] output = new int[r][c];
+        int rowNum = 0;
+        int columnNum = 0;
+        
+        for(int i = 0; i < rows; i++){
+            for (int j = 0; j < columns; j++){
+                output[rowNum][columnNum] = nums[i][j];
+                columnNum++;
+                if (columnNum == c){
+                    columnNum = 0;
+                    rowNum++;
+                }
             }
         }
-        int i = 0;
-        for(int row = 0; row < array.length; row++){
-            for(int col = 0; col < array[0].length; col++){
-                array[row][col] = tmp[i];
-                i++;
-            }
-        }
-        return array;
+        return output;
     }
 }
