@@ -1,20 +1,23 @@
 class Solution {
     public boolean isHappy(int n) {
         HashSet<Integer> seen = new HashSet<>();
-        while(n != 1 && !seen.contains(n)) {
+        while(n != 1 ) {
+            int current = n;
+            int sum = 0;
+            
+            while(current != 0){
+                int rem = current % 10;
+                sum = sum + (rem * rem);
+                current = current / 10;
+            }
+            
+            if (seen.contains(sum)){
+                return false;
+            }
+            
+            n = sum;
             seen.add(n);
-            n = sqOfSumOfDigits(n);
         }
-        return n == 1;
-    }
-    
-    private int sqOfSumOfDigits(int n) {
-        int sum = 0;
-        while(n > 0) {
-            int rem = n % 10;
-            sum += (rem * rem);
-            n /= 10;
-        }
-        return sum;
+        return true;
     }
 }
